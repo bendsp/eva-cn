@@ -52,7 +52,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             EVA-CN / UNOFFICIAL FAN PROJECT / BY{" "}
             <a className="site-footer-author" href="https://desprets.net">BEN DESPRETS</a>
           </EvaText>
-          <EvaText as="span" tracking="wide" variant="data">REGISTRY STATUS 05/05</EvaText>
         </footer>
       </body>
     </html>

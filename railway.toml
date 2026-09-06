@@ -1,0 +1,11 @@
+[build]
+builder = "RAILPACK"
+buildCommand = "pnpm build"
+watchPatterns = ["/apps/docs/**", "/packages/registry/**", "/scripts/**", "/package.json", "/pnpm-lock.yaml", "/pnpm-workspace.yaml", "/registry.json", "/railway.toml", "/LICENSE"]
+
+[deploy]
+startCommand = "pnpm --filter @eva-cn/docs exec next start --hostname 0.0.0.0 --port $PORT"
+healthcheckPath = "/"
+healthcheckTimeout = 120
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 10

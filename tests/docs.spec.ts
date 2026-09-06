@@ -51,10 +51,10 @@ test("DialKit text edits and reset update the preview and JSX", async ({ page })
 
 test("client navigation replaces the DialKit panel", async ({ page }) => {
   await page.goto(origin)
-  await page.getByRole("link", { name: /ITEM-03 EVA-BADGE/ }).click()
+  await page.getByRole("link", { name: /ITEM-03 BADGE/ }).click()
   await expect(page.getByRole("textbox", { name: "Text", exact: true })).toHaveValue("WARNING")
   await page.getByRole("link", { name: "← All components" }).click()
-  await page.getByRole("link", { name: /ITEM-04 EVA-SEGMENT-DISPLAY/ }).click()
+  await page.getByRole("link", { name: /ITEM-04 SEGMENT DISPLAY/ }).click()
   await expect(page.getByRole("textbox", { name: "Value", exact: true })).toHaveValue("09:13.27")
   await expect(page.getByRole("textbox", { name: "Text", exact: true })).toHaveCount(0)
 })

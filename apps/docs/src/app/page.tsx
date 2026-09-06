@@ -66,7 +66,7 @@ export default function Home() {
               ITEM-01
             </EvaBadge>
             <EvaText as="h2" horizontalScale={0.8} tracking="tight" variant="interface" uppercase>
-              EVA-THEME
+              THEME
             </EvaText>
             <EvaText as="p" variant="roman">
               Color, typography, radius, and semantic tokens. Install this first or let Eva Text pull it in.
@@ -78,7 +78,7 @@ export default function Home() {
               ITEM-02
             </EvaBadge>
             <EvaText as="h2" horizontalScale={0.8} tracking="tight" variant="interface" uppercase>
-              EVA-TEXT
+              TEXT
             </EvaText>
             <EvaText as="p" variant="roman">
               English and Japanese type roles with explicit tracking and horizontal display scaling.
@@ -90,7 +90,7 @@ export default function Home() {
               ITEM-03
             </EvaBadge>
             <EvaText as="h2" horizontalScale={0.8} tracking="tight" variant="interface" uppercase>
-              EVA-BADGE
+              BADGE
             </EvaText>
             <EvaText as="p" variant="roman">
               Content-sized labels whose frame grows with the widest text level and the chosen spacing.
@@ -102,7 +102,7 @@ export default function Home() {
               ITEM-04
             </EvaBadge>
             <EvaText as="h2" horizontalScale={0.8} tracking="tight" variant="interface" uppercase>
-              EVA-SEGMENT-DISPLAY
+              SEGMENT DISPLAY
             </EvaText>
             <EvaText as="p" variant="roman">
               Configurable seven-segment glyphs for numeric values, clocks, limits, and readouts.
@@ -114,7 +114,7 @@ export default function Home() {
               ITEM-05
             </EvaBadge>
             <EvaText as="h2" horizontalScale={0.8} tracking="tight" variant="interface" uppercase>
-              EVA-STRIPE
+              STRIPE
             </EvaText>
             <EvaText as="p" variant="roman">
               Repeating signal bands with controlled angle, band width, gap, tone, and motion.
