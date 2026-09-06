@@ -74,7 +74,7 @@ EVA_REGISTRY_SOURCE='bendsp/eva-cn#YOUR_REF' pnpm test:consumer
 pnpm test
 ```
 
-CI runs these checks for pull requests and release branches. Browser traces are uploaded on failure. See [release checklist](RELEASING.md) for the final publication gates.
+CI runs these checks for pull requests and release branches, and repeats the consumer and browser checks against the public commit on pushes. Browser traces are uploaded on failure. See [release checklist](RELEASING.md) for the final publication gates.
 
 ## License
 
