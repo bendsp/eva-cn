@@ -1,0 +1,47 @@
+"use client"
+import { useCallback, useRef, useState } from "react"
+import { EvaText } from "@/components/ui/eva-text"
+import { EvaBadge } from "@/components/ui/eva-badge"
+import { EvaSegmentDisplay, resolveEvaSegmentGeometry } from "@/components/ui/eva-segment-display"
+import { EvaStripe, resolveEvaStripeGeometry } from "@/components/ui/eva-stripe"
+
+export default function Page() {
+  const [tag, setTag] = useState<"span" | "h2">("span")
+  const [text, setText] = useState("WARNING")
+  const [secondary, setSecondary] = useState("RED")
+  const [width, setWidth] = useState(180)
+  const [visible, setVisible] = useState(true)
+  const [theme, setTheme] = useState(false)
+  const [refTag, setRefTag] = useState("")
+  const [cleanupVisible, setCleanupVisible] = useState(true)
+  const cleanupRef = useCallback((node: HTMLElement | null) => {
+    if (node) return () => setRefTag("cleaned")
+  }, [])
+  const headingRef = useRef<HTMLElement>(null)
+  return <main className={theme ? "" : "dark"} style={{ background: "var(--background)", color: "var(--foreground)" }}>
+    <input aria-label="Text" value={text} onChange={e => setText(e.target.value)} />
+    <input aria-label="Secondary" value={secondary} onChange={e => setSecondary(e.target.value)} />
+    <button onClick={() => setTag(tag === "span" ? "h2" : "span")}>Change element</button>
+    <button onClick={() => setWidth(width === 180 ? 500 : 180)}>Resize</button>
+    <button onClick={() => setVisible(!visible)}>Toggle hidden</button>
+    <button onClick={() => { document.documentElement.classList.toggle("dark"); setTheme(!theme) }}>Theme</button>
+    <button onClick={() => setRefTag(headingRef.current?.tagName ?? "missing")}>Read ref</button><output>{refTag}</output>
+    <button onClick={() => setCleanupVisible(false)}>Unmount ref</button>
+    {cleanupVisible && <EvaText ref={cleanupRef}>Cleanup target</EvaText>}
+    <EvaText as="h1" id="consumer-heading" aria-label="Consumer heading" ref={headingRef} style={{ fontSize: 24 }}>Consumer</EvaText>
+    <div style={{ fontSize: 32 }}>
+      <EvaText id="natural">PATTERN BLUE</EvaText>
+      <EvaText id="scaled" horizontalScale={0.5}>PATTERN BLUE</EvaText>
+      <EvaText id="expanded" horizontalScale={1.2}>PATTERN BLUE</EvaText>
+    </div>
+    <div data-testid="container" style={{ width, display: visible ? "block" : "none", padding: 8, boxSizing: "border-box" }}>
+      <EvaBadge data-testid="badge" secondary={secondary} separator>{text}</EvaBadge>
+      <EvaText as={tag} id="fitted" fit horizontalScale={0.72} style={{ fontSize: 48 }}>{text}</EvaText>
+    </div>
+    <EvaBadge data-testid="initial-empty">{null}</EvaBadge>
+    <EvaBadge data-testid="japanese" lang="ja" secondary="接続中">第3新東京市</EvaBadge>
+    <EvaSegmentDisplay value="09:13.27" data-testid="segment" />
+    <div style={{ height: 40, width: 200 }}><EvaStripe motion={{ kind: "scroll" }} data-testid="stripe" /></div>
+    <pre data-testid="geometry">{JSON.stringify({ segment: resolveEvaSegmentGeometry({ digitWidth: 32, segmentThickness: 20, segmentGap: 8 }), stripe: resolveEvaStripeGeometry({ angle: NaN, band: -2, gap: Infinity }) })}</pre>
+  </main>
+}

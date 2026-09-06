@@ -1,6 +1,6 @@
 {
   "name": "@eva-cn/registry",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "private": true,
   "type": "module",
   "exports": {
@@ -15,10 +15,11 @@
     "tailwind-merge": "^3.6.0"
   },
   "peerDependencies": {
-    "react": ">=18"
+    "react": ">=19 <20"
   },
   "devDependencies": {
     "@types/react": "^19.2.18",
     "react": "^19.2.8"
-  }
+  },
+  "license": "MIT"
 }

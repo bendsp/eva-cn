@@ -1,75 +1,52 @@
-import { EvaStripe } from "@eva-cn/registry/eva-stripe"
-import { EvaText } from "@eva-cn/registry/eva-text"
-import { EvaStripeLab } from "@/components/eva-stripe-lab"
+import { ComponentPage } from "@/components/component-page"
+import { EvaStripeLab } from "@/components/component-labs"
 
-export default function EvaStripePage() {
-  return (
-    <main className="page-shell">
-      <EvaText as="p" className="eyebrow" tracking="wide" variant="data">
-        ITEM 05 / REGISTRY:UI / EDGE PATTERN
-      </EvaText>
-      <EvaText as="h1" className="doc-heading" horizontalScale={0.72} tracking="tight" variant="interface" uppercase>
-        EVA-STRIPE
-      </EvaText>
-      <EvaText as="p" className="lede" variant="roman">
-        Repeating signal bands for frame edges, warning fields, and status regions.
-      </EvaText>
+export const metadata = { title: "EvaStripe" }
 
-      <div className="section-rule">
-        <EvaText as="span" tracking="wide" variant="data">INSTALL / INCLUDES EVA-THEME</EvaText>
-      </div>
-      <code className="install-command">
-        <EvaText as="span" variant="data">pnpm dlx shadcn@latest add bendsp/eva-cn/eva-stripe</EvaText>
-      </code>
-
-      <EvaStripeLab />
-
-      <div className="section-rule">
-        <EvaText as="span" tracking="wide" variant="data">REFERENCE FORMS / PLACEMENT STAYS EXTERNAL</EvaText>
-      </div>
-      <div className="stripe-reference-grid">
-        <section className="stripe-reference-sample stripe-reference-horizontal">
-          <EvaText as="span" className="stripe-reference-label" tracking="wide" variant="data">
-            HORIZONTAL / CRITICAL
-          </EvaText>
-          <div className="stripe-reference-bar">
-            <EvaStripe angle={-45} band={18} gap={10} orientation="horizontal" tone="critical" />
-          </div>
-        </section>
-
-        <section className="stripe-reference-sample stripe-reference-vertical">
-          <EvaText as="span" className="stripe-reference-label" tracking="wide" variant="data">
-            VERTICAL / AMBER / 500MS
-          </EvaText>
-          <div className="stripe-reference-rail">
-            <EvaStripe
-              angle={-45}
-              band={25}
-              gap={25}
-              motion={{ kind: "scroll", durationMs: 500 }}
-              orientation="vertical"
-              tone="amber"
-            />
-          </div>
-        </section>
-
-        <section className="stripe-reference-sample stripe-reference-frame">
-          <EvaText as="span" className="stripe-reference-label" tracking="wide" variant="data">
-            INHERITED TONE / FRAME EDGE
-          </EvaText>
-          <div className="stripe-frame-example">
-            <div className="stripe-frame-edge">
-              <EvaStripe angle={-45} band={15} gap={9} tone="inherit" />
-            </div>
-            <EvaText as="span" horizontalScale={0.78} tracking="tight" variant="interface" uppercase>
-              RESTRICTED AREA
-            </EvaText>
-            <div className="stripe-frame-edge">
-              <EvaStripe angle={45} band={15} gap={9} tone="inherit" />
-            </div>
-          </div>
-        </section>
-      </div>
-    </main>
-  )
+export default function Page() {
+  return <ComponentPage
+    name="EvaStripe"
+    item="eva-stripe"
+    description={"Signal bands for frame edges, warning fields, and status regions."}
+    notes={"Give the parent an explicit width and height. The stripe fills that space and is decorative, with no pointer input or screen-reader announcement. Scrolling respects reduced-motion preferences. resolveEvaStripeGeometry returns normalized angle, band, gap, and period values."}
+    props={[
+  {
+    "name": "angle",
+    "default": "-45",
+    "description": "Visible band angle in degrees; normalized into the supported range."
+  },
+  {
+    "name": "band / gap",
+    "default": "12 / 8 px",
+    "description": "Band width is clamped to 0.5 to 256 px; gap to 0 to 256 px."
+  },
+  {
+    "name": "tone",
+    "default": "amber",
+    "description": "inherit, paper, critical, amber, terminal, or data."
+  },
+  {
+    "name": "orientation",
+    "default": "horizontal",
+    "description": "horizontal or vertical selects the seamless scroll axis."
+  },
+  {
+    "name": "motion",
+    "default": "{ kind: \"none\" }",
+    "description": "Use kind=scroll with optional direction=forward/reverse and durationMs."
+  },
+  {
+    "name": "motion.durationMs",
+    "default": "1200",
+    "description": "Clamped to 100 to 60000 milliseconds."
+  },
+  {
+    "name": "className / style",
+    "default": "\u2014",
+    "description": "Style the stripe; placement and dimensions belong to its parent."
+  }
+]}
+  >
+    <EvaStripeLab />
+  </ComponentPage>
 }

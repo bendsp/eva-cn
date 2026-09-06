@@ -1,17 +1,27 @@
 {
   "name": "eva-cn",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "private": true,
   "packageManager": "pnpm@10.32.1",
   "scripts": {
-    "build": "pnpm registry:build && pnpm --filter @eva-cn/docs build",
-    "dev": "pnpm registry:build && pnpm --filter @eva-cn/docs dev",
-    "lint": "pnpm --filter @eva-cn/docs lint",
+    "build": "pnpm theme:build && pnpm registry:build && pnpm --filter @eva-cn/docs build",
+    "dev": "pnpm theme:build && pnpm registry:build && pnpm --filter @eva-cn/docs dev",
+    "lint": "eslint apps/docs/src packages/registry/registry scripts tests",
     "registry:build": "shadcn build registry.json --output apps/docs/public/r",
     "registry:validate": "shadcn registry validate ./registry.json",
-    "typecheck": "pnpm --filter @eva-cn/docs typecheck"
+    "typecheck": "pnpm --filter @eva-cn/docs typecheck",
+    "theme:build": "node scripts/theme.mjs",
+    "theme:check": "node scripts/theme.mjs --check",
+    "test": "playwright test",
+    "test:consumer": "node scripts/consumer.mjs",
+    "check": "pnpm theme:check && pnpm typecheck && pnpm lint && pnpm registry:validate"
   },
   "devDependencies": {
-    "shadcn": "4.19.0"
-  }
+    "@playwright/test": "^1.63.0",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "16.3.3",
+    "shadcn": "4.19.0",
+    "typescript": "^5.9.3"
+  },
+  "license": "MIT"
 }

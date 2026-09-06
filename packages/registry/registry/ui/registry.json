@@ -11,7 +11,7 @@
         "tailwind-merge"
       ],
       "registryDependencies": [
-        "bendsp/eva-cn/eva-text"
+        "bendsp/eva-cn/eva-text#6c853b1c190df355d96297355aec63b149c46b8a"
       ],
       "files": [
         {
@@ -28,7 +28,7 @@
       "title": "Eva Text",
       "description": "Display typography with Evangelion-inspired font roles, tracking, and horizontal scaling.",
       "registryDependencies": [
-        "bendsp/eva-cn/eva-theme"
+        "bendsp/eva-cn/eva-theme#e8aa737701b2c1a0a7782a511bcc458b9cb83e16"
       ],
       "files": [
         {
@@ -37,7 +37,7 @@
           "target": "@ui/eva-text.tsx"
         }
       ],
-      "docs": "Horizontal scaling changes the rendered shape without changing layout width. Use it for headings and labels, not body-copy wrapping."
+      "docs": "EvaText supports standard HTML attributes, style, and refs. Without fit, horizontalScale changes the rendered shape without changing layout width. With fit, a single line reserves its scaled dimensions and shrinks to the parent content width. Use unscaled text for wrapping body copy."
     },
     {
       "name": "eva-segment-display",
@@ -49,7 +49,7 @@
         "tailwind-merge"
       ],
       "registryDependencies": [
-        "bendsp/eva-cn/eva-theme"
+        "bendsp/eva-cn/eva-theme#e8aa737701b2c1a0a7782a511bcc458b9cb83e16"
       ],
       "files": [
         {
@@ -70,7 +70,7 @@
         "tailwind-merge"
       ],
       "registryDependencies": [
-        "bendsp/eva-cn/eva-theme"
+        "bendsp/eva-cn/eva-theme#e8aa737701b2c1a0a7782a511bcc458b9cb83e16"
       ],
       "files": [
         {

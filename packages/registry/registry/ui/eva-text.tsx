@@ -7,7 +7,8 @@ export type EvaTextVariant = "title" | "interface" | "roman" | "data"
 export type EvaTextLanguage = "en" | "ja"
 export type EvaTextTracking = "tight" | "normal" | "wide"
 
-export type EvaTextProps = {
+export interface EvaTextProps extends Omit<React.HTMLAttributes<HTMLElement>, "children" | "lang"> {
+  ref?: React.Ref<HTMLElement>
   as?: EvaTextElement
   variant?: EvaTextVariant
   lang?: EvaTextLanguage
@@ -82,19 +83,36 @@ export function EvaText({
   uppercase,
   className,
   children,
+  style,
+  ref: forwardedRef,
+  ...props
 }: EvaTextProps) {
-  const Root = Component as React.ElementType
+  const Root = Component
   const scale = normalizeScale(horizontalScale)
   const shouldUppercase = uppercase ?? variant === "title"
   const rootRef = React.useRef<HTMLElement>(null)
   const contentRef = React.useRef<HTMLSpanElement>(null)
   const [fitBox, setFitBox] = React.useState<FitBox | null>(null)
 
-  React.useLayoutEffect(() => {
-    if (!fit) {
-      setFitBox(null)
-      return
+  const setRootRef = React.useCallback((node: HTMLElement | null) => {
+    rootRef.current = node
+    if (typeof forwardedRef === "function") {
+      const cleanup = forwardedRef(node)
+      return () => {
+        rootRef.current = null
+        if (typeof cleanup === "function") cleanup()
+        else forwardedRef(null)
+      }
     }
+    if (forwardedRef) forwardedRef.current = node
+    return () => {
+      rootRef.current = null
+      if (forwardedRef) forwardedRef.current = null
+    }
+  }, [forwardedRef])
+
+  React.useLayoutEffect(() => {
+    if (!fit) return
 
     const root = rootRef.current
     const content = contentRef.current
@@ -117,9 +135,11 @@ export function EvaText({
         const naturalHeight = content.scrollHeight
         const naturalWidth = content.scrollWidth
 
-        if (availableWidth <= 0 || naturalHeight <= 0 || naturalWidth <= 0) return
+        if (availableWidth <= 0) return
 
-        const nextScale = Math.min(1, availableWidth / (naturalWidth * scale))
+        const nextScale = naturalWidth > 0
+          ? Math.min(1, availableWidth / (naturalWidth * scale))
+          : 1
         const nextBox = {
           height: naturalHeight * nextScale,
           scale: nextScale,
@@ -150,14 +170,17 @@ export function EvaText({
       cancelAnimationFrame(animationFrame)
       observer.disconnect()
     }
-  }, [children, fit, lang, scale, tracking, uppercase, variant])
+  }, [children, Component, fit, lang, scale, tracking, uppercase, variant])
 
   const scaledStyle: React.CSSProperties =
     scale === 1 && !fit
       ? {}
       : {
           display: "inline-block",
-          ...(fitBox
+          ...(!fit
+            ? { transform: `scaleX(${scale})`, transformOrigin: "left center" }
+            : {}),
+          ...(fit && fitBox
             ? {
                 height: fitBox.height,
                 position: "relative",
@@ -169,6 +192,7 @@ export function EvaText({
 
   return (
     <Root
+      {...props}
       className={className}
       data-eva-text=""
       data-fit={fit ? "shrink" : undefined}
@@ -176,13 +200,14 @@ export function EvaText({
       data-tracking={tracking}
       data-variant={variant}
       lang={lang}
-      ref={rootRef}
+      ref={setRootRef}
       style={{
         fontFamily: fontFamilies[variant][lang],
         fontWeight: fontWeights[variant][lang],
         letterSpacing: letterSpacing[tracking],
         lineHeight: lineHeights[variant],
         textTransform: shouldUppercase ? "uppercase" : undefined,
+        ...style,
         ...scaledStyle,
       }}
     >

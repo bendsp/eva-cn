@@ -147,7 +147,7 @@ function ContentText({
   uppercase,
 }: ContentTextProps) {
   const textRef = React.useRef<HTMLDivElement>(null)
-  const [naturalSize, setNaturalSize] = React.useState({ height: 0, width: 0 })
+  const [naturalSize, setNaturalSize] = React.useState<{ height: number; width: number } | null>(null)
 
   React.useLayoutEffect(() => {
     const text = textRef.current
@@ -163,10 +163,10 @@ function ContentText({
       animationFrame = requestAnimationFrame(() => {
         const height = text.scrollHeight
         const width = text.scrollWidth
-        if (!active || height === 0 || width === 0) return
+        if (!active || text.getClientRects().length === 0) return
 
         setNaturalSize((current) =>
-          current.height === height && current.width === width
+          current?.height === height && current.width === width
             ? current
             : { height, width }
         )
@@ -188,15 +188,15 @@ function ContentText({
   }, [children, fontSize, lang, tracking, uppercase])
 
   const translate = align === "center" ? "translateX(-50%) " : ""
-  const measured = naturalSize.height > 0 && naturalSize.width > 0
+  const measured = naturalSize !== null
 
   return (
     <div
       className={contentTextVariants({ align })}
       data-slot="eva-badge-text"
       style={{
-        height: measured ? naturalSize.height : 0,
-        width: measured ? naturalSize.width * horizontalScale : 0,
+        height: naturalSize?.height,
+        width: naturalSize ? naturalSize.width * horizontalScale : undefined,
       }}
     >
       <div
@@ -204,8 +204,11 @@ function ContentText({
         ref={textRef}
         style={{
           fontSize,
-          transform: `${translate}scaleX(${horizontalScale})`,
-          visibility: measured ? "visible" : "hidden",
+          // Keep server-rendered labels in normal flow until measurement.
+          position: measured ? "absolute" : "relative",
+          left: !measured ? "auto" : undefined,
+          right: !measured ? "auto" : undefined,
+          transform: `${measured ? translate : ""}scaleX(${horizontalScale})`,
         }}
       >
         <EvaText
@@ -288,7 +291,7 @@ export function EvaBadge({
       animationFrame = requestAnimationFrame(() => {
         const height = badge.offsetHeight
         const width = badge.offsetWidth
-        if (!active || height === 0 || width === 0) return
+        if (!active || badge.getClientRects().length === 0) return
 
         const computedShellStyle = getComputedStyle(shell)
         const paddingBlock = Number.parseFloat(computedShellStyle.paddingTop)
@@ -304,7 +307,7 @@ export function EvaBadge({
         const borderBox = computedShellStyle.boxSizing === "border-box"
         const availableWidth = Math.max(0, shell.clientWidth - paddingInline)
 
-        const rawScale = availableWidth === 0
+        const rawScale = width === 0 ? 1 : availableWidth === 0
           ? 0
           : Math.min(1, availableWidth / width)
         const nextScale = rawScale > 0.999 ? 1 : rawScale
@@ -376,7 +379,6 @@ export function EvaBadge({
         style={{
           transform: `scale(${fitScale})`,
           transformOrigin: "left top",
-          visibility: measured ? "visible" : "hidden",
           width: "max-content",
         }}
       >
