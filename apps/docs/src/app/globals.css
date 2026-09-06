@@ -334,3 +334,6 @@ button:focus-visible, a:focus-visible, pre:focus-visible { outline: 2px solid va
   .playground-preview { height: 260px; min-height: 260px; }
   .playground-controls { height: auto; max-height: 420px; }
 }
+
+html.dark { color-scheme: dark; }
+.eva-theme-light { color-scheme: light; }

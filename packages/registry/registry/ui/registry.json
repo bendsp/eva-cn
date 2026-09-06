@@ -28,7 +28,7 @@
       "title": "Eva Text",
       "description": "Display typography with Evangelion-inspired font roles, tracking, and horizontal scaling.",
       "registryDependencies": [
-        "bendsp/eva-cn/eva-theme"
+        "bendsp/eva-cn/eva-theme#e8aa737701b2c1a0a7782a511bcc458b9cb83e16"
       ],
       "files": [
         {
@@ -49,7 +49,7 @@
         "tailwind-merge"
       ],
       "registryDependencies": [
-        "bendsp/eva-cn/eva-theme"
+        "bendsp/eva-cn/eva-theme#e8aa737701b2c1a0a7782a511bcc458b9cb83e16"
       ],
       "files": [
         {
@@ -70,7 +70,7 @@
         "tailwind-merge"
       ],
       "registryDependencies": [
-        "bendsp/eva-cn/eva-theme"
+        "bendsp/eva-cn/eva-theme#e8aa737701b2c1a0a7782a511bcc458b9cb83e16"
       ],
       "files": [
         {

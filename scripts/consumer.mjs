@@ -34,7 +34,7 @@ for (const file of await readdir(resolve(root, 'apps/docs/public/r'))) {
 const server = createServer((req, res) => {
   const item = items.get(req.url)
   if (!item) { res.writeHead(404).end(); return }
-  const dependencies = item.registryDependencies?.map(dependency => dependency.startsWith('bendsp/eva-cn/') ? `${origin}/${dependency.split('/').at(-1)}.json` : dependency)
+  const dependencies = item.registryDependencies?.map(dependency => dependency.startsWith('bendsp/eva-cn/') ? `${origin}/${dependency.split('#')[0].split('/').at(-1)}.json` : dependency)
   res.setHeader('Content-Type', 'application/json')
   res.end(JSON.stringify({ ...item, ...(dependencies ? { registryDependencies: dependencies } : {}) }))
 })

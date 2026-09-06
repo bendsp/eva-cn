@@ -1,6 +1,7 @@
 import { EvaBadge } from "@eva-cn/registry/eva-badge"
 import { EvaText } from "@eva-cn/registry/eva-text"
 import type { Metadata } from "next"
+import type { ReactNode } from "react"
 import Link from "next/link"
 import "dialkit/styles.css"
 import "./globals.css"
@@ -13,7 +14,7 @@ export const metadata: Metadata = {
   description: "Evangelion-inspired typography and interface primitives for shadcn.",
 }
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className="dark">
       <body>
