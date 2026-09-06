@@ -2,6 +2,7 @@ import { EvaBadge } from "@eva-cn/registry/eva-badge"
 import { EvaText } from "@eva-cn/registry/eva-text"
 import type { Metadata } from "next"
 import Link from "next/link"
+import "dialkit/styles.css"
 import "./globals.css"
 
 export const metadata: Metadata = {

@@ -1,75 +1,34 @@
+import Link from "next/link"
 import { EvaText } from "@eva-cn/registry/eva-text"
+import { CodeBlock } from "@/components/lab-shell"
+import { ThemePreview } from "@/components/theme-preview"
 
-const fontRoles = [
-  { role: "TITLE / EN", family: "Besley", variant: "title" as const, lang: "en" as const, sample: "NEON GENESIS" },
-  { role: "TITLE / JA", family: "Noto Serif JP", variant: "title" as const, lang: "ja" as const, sample: "新世紀" },
-  { role: "INTERFACE / EN", family: "Archivo", variant: "interface" as const, lang: "en" as const, sample: "PATTERN BLUE" },
-  { role: "INTERFACE / JA", family: "Noto Sans JP", variant: "interface" as const, lang: "ja" as const, sample: "作戦開始" },
-  { role: "ROMAN / EN", family: "Tinos", variant: "roman" as const, lang: "en" as const, sample: "The fate of destruction" },
-  { role: "DATA / JA + EN", family: "M PLUS 1 Code", variant: "data" as const, lang: "ja" as const, sample: "第3新東京市 / 00:03:27" },
-]
+export const metadata = { title: "EvaTheme" }
 
-export default function EvaThemePage() {
-  return (
-    <main className="page-shell">
-      <EvaText as="p" className="eyebrow" tracking="wide" variant="data">ITEM 01 / REGISTRY:THEME</EvaText>
-      <EvaText as="h1" className="doc-heading" horizontalScale={0.72} tracking="tight" variant="interface" uppercase>
-        EVA-THEME
-      </EvaText>
-      <EvaText as="p" className="lede" variant="roman">
-        The common signal palette and font roles used by every EVA-CN component.
-      </EvaText>
-
-      <div className="section-rule">
-        <EvaText as="span" tracking="wide" variant="data">INSTALL / PUBLIC GITHUB REGISTRY</EvaText>
-      </div>
-      <code className="install-command">
-        <EvaText as="span" variant="data">pnpm dlx shadcn@latest add bendsp/eva-cn/eva-theme</EvaText>
-      </code>
-
-      <div className="section-rule">
-        <EvaText as="span" tracking="wide" variant="data">SIGNAL PALETTE / SIX TOKENS</EvaText>
-      </div>
-      <div className="palette-grid">
-        <div className="swatch swatch-black">
-          <EvaText as="span" variant="data">BLACK</EvaText>
-          <EvaText as="span" variant="data">--eva-black</EvaText>
-        </div>
-        <div className="swatch swatch-paper">
-          <EvaText as="span" variant="data">PAPER</EvaText>
-          <EvaText as="span" variant="data">--eva-paper</EvaText>
-        </div>
-        <div className="swatch swatch-critical">
-          <EvaText as="span" variant="data">EMERGENCY RED</EvaText>
-          <EvaText as="span" variant="data">--eva-critical</EvaText>
-        </div>
-        <div className="swatch swatch-amber">
-          <EvaText as="span" variant="data">COMMAND ORANGE</EvaText>
-          <EvaText as="span" variant="data">--eva-amber</EvaText>
-        </div>
-        <div className="swatch swatch-terminal">
-          <EvaText as="span" variant="data">TERMINAL GREEN</EvaText>
-          <EvaText as="span" variant="data">--eva-terminal</EvaText>
-        </div>
-        <div className="swatch swatch-data">
-          <EvaText as="span" variant="data">DATA CYAN</EvaText>
-          <EvaText as="span" variant="data">--eva-data</EvaText>
-        </div>
-      </div>
-
-      <div className="section-rule">
-        <EvaText as="span" tracking="wide" variant="data">FONT ROLES / OPEN-SOURCE SUBSTITUTES</EvaText>
-      </div>
-      <div className="font-map">
-        {fontRoles.map((font) => (
-          <div className="font-cell" key={font.role}>
-            <small>
-              <EvaText as="span" tracking="wide" variant="data">{font.role} / {font.family}</EvaText>
-            </small>
-            <EvaText as="div" lang={font.lang} variant={font.variant}>{font.sample}</EvaText>
-          </div>
-        ))}
-      </div>
-    </main>
-  )
+export default function Page() {
+  return <main className="page-shell component-page">
+    <Link href="/" className="back-link">← All components</Link>
+    <header className="component-intro">
+      <EvaText as="h1" className="component-heading" variant="interface" tracking="tight">EvaTheme</EvaText>
+      <p>Signal colors, English and Japanese font roles, and semantic shadcn tokens. The preview uses exactly the theme you install.</p>
+    </header>
+    <ThemePreview />
+    <section className="integration-section">
+      <h2>Installation</h2>
+      <p>Initialize shadcn in a React 19 and Tailwind CSS 4 app first. Installing any EVA component also installs this theme. It adds six Fontsource packages and updates global semantic colors, fonts, and radius tokens. Review the CLI diff when adding it to an existing design.</p>
+      <CodeBlock label="Copy command" code="pnpm dlx shadcn@latest add bendsp/eva-cn/eva-theme" />
+      <p>Light mode is the default. Add the dark class to your HTML element to use dark mode. Fonts are served by your app; no external font service is required.</p>
+      <CodeBlock code={'<html lang="en" className="dark">\n  <body className="bg-background text-foreground">\n    {children}\n  </body>\n</html>'} />
+    </section>
+    <section className="integration-section">
+      <h2>Font roles</h2>
+      <div className="props-scroll"><table><thead><tr><th>Variant</th><th>English</th><th>Japanese</th></tr></thead><tbody>
+        <tr><td>title</td><td>Besley 700</td><td>Noto Serif JP 900</td></tr>
+        <tr><td>interface</td><td>Archivo 700</td><td>Noto Sans JP 700</td></tr>
+        <tr><td>roman</td><td>Tinos 400</td><td>Noto Serif JP 400</td></tr>
+        <tr><td>data</td><td>M PLUS 1 Code 500</td><td>M PLUS 1 Code 500</td></tr>
+      </tbody></table></div>
+      <p>Use bg-eva-black and text-eva-paper, text-eva-critical, text-eva-amber, text-eva-terminal, or text-eva-data for explicit signal colors. Use standard shadcn utilities such as bg-background and text-foreground for theme-aware content.</p>
+    </section>
+  </main>
 }

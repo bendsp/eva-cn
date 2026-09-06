@@ -1,66 +1,87 @@
-import { EvaBadge } from "@eva-cn/registry/eva-badge"
-import { EvaText } from "@eva-cn/registry/eva-text"
-import { EvaBadgeLab } from "@/components/eva-badge-lab"
+import { ComponentPage } from "@/components/component-page"
+import { EvaBadgeLab } from "@/components/component-labs"
 
-export default function EvaBadgePage() {
-  return (
-    <main className="page-shell">
-      <EvaText as="p" className="eyebrow" tracking="wide" variant="data">
-        ITEM 03 / REGISTRY:UI / FRAMED LABELS
-      </EvaText>
-      <EvaText as="h1" className="doc-heading" horizontalScale={0.72} tracking="tight" variant="interface" uppercase>
-        EVA-BADGE
-      </EvaText>
-      <EvaText as="p" className="lede" variant="roman">
-        Content-sized interface labels whose frame follows the text, type sizes, and spacing.
-      </EvaText>
+export const metadata = { title: "EvaBadge" }
 
-      <div className="section-rule">
-        <EvaText as="span" tracking="wide" variant="data">INSTALL / INCLUDES EVA-TEXT + EVA-THEME</EvaText>
-      </div>
-      <code className="install-command">
-        <EvaText as="span" variant="data">pnpm dlx shadcn@latest add bendsp/eva-cn/eva-badge</EvaText>
-      </code>
-
-      <EvaBadgeLab />
-
-      <div className="section-rule">
-        <EvaText as="span" tracking="wide" variant="data">REFERENCE FORMS / ONE + TWO LEVELS</EvaText>
-      </div>
-      <div className="badge-showcase">
-        <section className="badge-sample">
-          <EvaText as="span" className="badge-sample-label" tracking="wide" variant="data">
-            ONE LEVEL / CRITICAL
-          </EvaText>
-          <EvaBadge size="lg" tone="critical">UNKNOWN</EvaBadge>
-        </section>
-        <section className="badge-sample badge-sample-alert">
-          <EvaText as="span" className="badge-sample-label" tracking="wide" variant="data">
-            TWO LEVELS / DIVIDED / TERMINAL
-          </EvaText>
-          <EvaBadge secondary="TOPOGRAPHICAL MAP" separator size="lg" tone="terminal">
-            TOKYO-3
-          </EvaBadge>
-        </section>
-        <section className="badge-sample badge-sample-wide">
-          <EvaText as="span" className="badge-sample-label" tracking="wide" variant="data">
-            TWO LEVELS / OPEN / AMBER
-          </EvaText>
-          <EvaBadge emphasis="secondary" secondary="ANGEL" size="lg" tone="amber">
-            17TH
-          </EvaBadge>
-        </section>
-      </div>
-
-      <div className="section-rule">
-        <EvaText as="span" tracking="wide" variant="data">CONTROLLED FRAMES + SIGNAL TONES</EvaText>
-      </div>
-      <div className="badge-scale-row">
-        <EvaBadge shape="square" size="sm" tone="paper">MAGI</EvaBadge>
-        <EvaBadge secondary="ACTIVE" separator size="md" tone="data">CASPER</EvaBadge>
-        <EvaBadge secondary="ENTRY PLUG" tone="amber">EVA-01</EvaBadge>
-        <EvaBadge lang="ja" secondary="接続中" separator size="md" tone="terminal">第3新東京市</EvaBadge>
-      </div>
-    </main>
-  )
+export default function Page() {
+  return <ComponentPage
+    name="EvaBadge"
+    item="eva-badge"
+    description={"A label whose frame follows its content and shrinks as one complete unit."}
+    notes={"The widest text level sets the width. A shorter second line adds height; a longer one also adds width. className and style affect the outer layout shell; frameClassName and frameStyle affect the visible frame. Labels remain visible before JavaScript loads, then refine their sizing after fonts and layout are measured."}
+    props={[
+  {
+    "name": "children / secondary",
+    "default": "required / absent",
+    "description": "Primary and optional secondary content. An empty string creates an empty second level; omit it to remove that level."
+  },
+  {
+    "name": "size",
+    "default": "md",
+    "description": "sm, md, or lg set coordinated typography and frame defaults."
+  },
+  {
+    "name": "tone",
+    "default": "amber",
+    "description": "paper, critical, amber, terminal, or data."
+  },
+  {
+    "name": "shape / cornerRadius",
+    "default": "rounded / preset",
+    "description": "Use square for sharp corners, or override the rounded radius."
+  },
+  {
+    "name": "fontSize / secondaryFontSize",
+    "default": "40 / 16 px at md",
+    "description": "Override either text level. CSS font sizes are accepted."
+  },
+  {
+    "name": "horizontalScale",
+    "default": "0.86",
+    "description": "Changes both letter shape and measured width."
+  },
+  {
+    "name": "lang / secondaryLang",
+    "default": "en / lang",
+    "description": "en or ja for each text level."
+  },
+  {
+    "name": "align / tracking",
+    "default": "center / tight",
+    "description": "start, center, end alignment; tight, normal, wide tracking."
+  },
+  {
+    "name": "uppercase / emphasis",
+    "default": "true / primary",
+    "description": "emphasis=secondary swaps default font sizes."
+  },
+  {
+    "name": "paddingInline / paddingBlock",
+    "default": "12 / 5 px at md",
+    "description": "Inner horizontal and vertical padding."
+  },
+  {
+    "name": "borderWidth / gap",
+    "default": "3 / 3 px at md",
+    "description": "Frame thickness and space between levels."
+  },
+  {
+    "name": "separator / separatorThickness",
+    "default": "false / 2 px at md",
+    "description": "An optional divider between levels."
+  },
+  {
+    "name": "className / style",
+    "default": "\u2014",
+    "description": "Outer shell layout and spacing. Frame overrides use frameClassName / frameStyle."
+  },
+  {
+    "name": "HTML attributes",
+    "default": "\u2014",
+    "description": "Standard div attributes and event handlers."
+  }
+]}
+  >
+    <EvaBadgeLab />
+  </ComponentPage>
 }

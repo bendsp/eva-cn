@@ -37,7 +37,7 @@
           "target": "@ui/eva-text.tsx"
         }
       ],
-      "docs": "Horizontal scaling changes the rendered shape without changing layout width. Use it for headings and labels, not body-copy wrapping."
+      "docs": "EvaText supports standard HTML attributes, style, and refs. Without fit, horizontalScale changes the rendered shape without changing layout width. With fit, a single line reserves its scaled dimensions and shrinks to the parent content width. Use unscaled text for wrapping body copy."
     },
     {
       "name": "eva-segment-display",

@@ -1,3 +1,7 @@
+# Historical badge design QA
+
+This records the August 30, 2026 implementation. The old lab interface and its controls have since been replaced by DialKit. Use `pnpm check`, `pnpm test:consumer`, and `pnpm test` for the current verification gates. The conclusions below apply only to the historical captures.
+
 # EvaBadge design QA
 
 ## Evidence
