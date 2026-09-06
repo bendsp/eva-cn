@@ -11,7 +11,7 @@
         "tailwind-merge"
       ],
       "registryDependencies": [
-        "bendsp/eva-cn/eva-text"
+        "bendsp/eva-cn/eva-text#6c853b1c190df355d96297355aec63b149c46b8a"
       ],
       "files": [
         {
